@@ -24,6 +24,8 @@ jobs:
         sed -i '/# 1:1 notes/a\
         ## '"$WEEK_OF"'\
         \
+        * All Areas are Optional \
+        \
         ### What can we talk about? \
         \
         - [TODO] \
@@ -41,8 +43,11 @@ jobs:
         - [TODO] \
         \
         ### Do you have any feedback for me or your teammates? \
-        - [TODO]' $f
+        - [TODO]
         \
+        ### Is there anything else we should discuss? \
+        \
+        - [TODO]' $f
         \
         done
         
