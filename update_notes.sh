@@ -1,3 +1,5 @@
+#! /bin/bash
+
 for f in meeting-notes/notes.md; do
 cat <<- EOF >> $f
 
