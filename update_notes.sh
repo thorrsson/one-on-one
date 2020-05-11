@@ -3,7 +3,7 @@
 for f in meeting-notes/notes.md; do
 cat <<- EOF >> $f
 
-## '"$WEEK_OF"'
+## $WEEK_OF
 
 ### What can we talk about?
 
