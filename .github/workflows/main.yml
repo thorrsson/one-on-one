@@ -2,20 +2,32 @@ name: 'Weekly report'
 on:
   schedule:
     - cron: 0 3 * * 1
-
+env:
+  MERGE_LABELS: "automerge"
+  MERGE_REMOVE_LABELS: "automerge"
+  MERGE_METHOD: "squash"
+  MERGE_COMMIT_MESSAGE: "Auto Merging Previous PRs"
+  MERGE_FORKS: "false"
+  MERGE_RETRIES: "6"
+  MERGE_RETRY_SLEEP: "10000"
+  UPDATE_LABELS: ""
+  UPDATE_METHOD: "rebase"
 jobs:
   weekly-report:
     runs-on: ubuntu-latest
     steps:
+    # Merge Any
+    - name: automerge
+      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+      env:
+        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     - name: Checkout workspace
       uses: actions/checkout@master
-
     # Get date and store as environment variables
     - name: Get and store variables
       run: |
         echo ::set-env name=BRANCH_NAME::$(date +%F)
         echo ::set-env name=WEEK_OF::"Week of $(date '+%B %d, %Y')"
-    
     # Create meeting notes scaffold
     - name: Create weekly notes scaffold file
       run: ./update_notes.sh
@@ -34,7 +46,7 @@ jobs:
         git push --force --set-upstream "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" $BRANCH_NAME
     # Open pull request
     - name: Open pull request for 1:1 notes
-      uses: actions/github-script@0.4.0
+      uses: actions/github-script@v2
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
@@ -55,3 +67,15 @@ jobs:
               "thorrsson"
             ],
           });
+    # add the automerge label
+    - name: Add merge label
+      uses: actions/github-script@v2
+      with:
+        github-token: ${{seccrets.GITHUB_TOKEN}}
+        script: |
+          github.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ['automerge']
+            })
