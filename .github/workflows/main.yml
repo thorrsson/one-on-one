@@ -71,7 +71,7 @@ jobs:
     - name: Add merge label
       uses: actions/github-script@v2
       with:
-        github-token: ${{seccrets.GITHUB_TOKEN}}
+        github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
           github.issues.addLabels({
               issue_number: context.issue.number,
