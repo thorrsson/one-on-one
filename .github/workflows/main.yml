@@ -2,6 +2,8 @@ name: 'Weekly report'
 on:
   schedule:
     - cron: 0 3 * * 1
+  push:
+    branches: master
 env:
   MERGE_LABELS: "automerge"
   MERGE_REMOVE_LABELS: "automerge"
