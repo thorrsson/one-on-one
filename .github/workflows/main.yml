@@ -47,7 +47,7 @@ jobs:
         git push --force --set-upstream "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" $BRANCH_NAME
     # Open pull request
     - name: Open pull request for 1:1 notes
-      uses: actions/github-script@v2
+      uses: actions/github-script@v3
       with:
         github-token: ${{secrets.GITHUB_TOKEN}}
         script: |
@@ -70,11 +70,11 @@ jobs:
           });
     # add the automerge label
     - name: Add merge label
-      uses: actions/github-script@v2
+      uses: actions/github-script@v3
       with:
-        github-token: ${{secrets.GITHUB_TOKEN}}
-        script: |
-          github.issues.addLabels({
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.addLabels({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
