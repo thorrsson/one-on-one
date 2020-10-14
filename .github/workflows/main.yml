@@ -19,7 +19,7 @@ jobs:
     steps:
     # Merge Any
     - name: automerge
-      uses: "pascalgn/automerge-action@4536e8847eb62fe2f0ee52c8fa92d17aa97f932f"
+      uses: "pascalgn/automerge-action@v0.12.0"
       env:
         GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
     - name: Checkout workspace
