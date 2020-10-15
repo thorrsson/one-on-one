@@ -24,7 +24,6 @@ jobs:
       with:
         token: ${{secrets.GITHUB_TOKEN}}
         labels: '["automerge"]'
-        hour: '24'
     - name: output
       run: echo '${{ steps.list.outputs.pulls }}'
 
