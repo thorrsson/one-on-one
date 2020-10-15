@@ -51,10 +51,9 @@ jobs:
     # Open pull request
 
     - name: Open pull request for 1:1 notes
-      uses: actions/checkout@v2
       uses: repo-sync/pull-request@v2
       with:
-        source_branch: "${{ BRANCH_NAME }}"               # If blank, default: triggered branch
+        source_branch: $BRANCH_NAME                       # If blank, default: triggered branch
         destination_branch: "master"                      # If blank, default: master
         pr_title: "Pulling ${{ github.ref }} into master" # Title of pull request
         pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
