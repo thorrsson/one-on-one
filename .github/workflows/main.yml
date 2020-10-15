@@ -18,25 +18,24 @@ jobs:
   weekly-report:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    # Find the PR associated with this push, if there is one and it is open.
-    - uses: jwalton/gh-find-current-pr@v1
-      id: findPr
+    - name: listPullRequests
+      uses: buildsville/list-pull-requests@v1
+      id: list
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-    # This will echo "Your PR is 7", or be skipped if there is no current PR.
-    - run: echo "Your PR is ${PR}"
-      if: success() && steps.findPr.outputs.number
-      env:
-        PR: ${{ steps.findPr.outputs.pr }}
-        
-    # Merge Any
-    - name: automerge
-      uses: "pascalgn/automerge-action@v0.12.0"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-    - name: Checkout workspace
-      uses: actions/checkout@master
+        token: ${{secrets.GITHUB_TOKEN}}
+        labels: '["automerge"]'
+        hour: '24'
+    - name: output
+      run: echo '${{ steps.list.outputs.pulls }}'
+
+    # # Merge Any
+    # - name: automerge
+    #   uses: "pascalgn/automerge-action@v0.12.0"
+    #   env:
+    #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    # - name: Checkout workspace
+    #   uses: actions/checkout@master
+
     # Get date and store as environment variables
     - name: Get and store variables
       run: |
