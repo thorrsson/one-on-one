@@ -21,12 +21,11 @@ jobs:
 
     # Merge Any
     - name: pr-automerge
-      uses: davideviolante/pr-automerge-action@v1.1.0
+      uses: thorrsson/pr-automerge-action@190a1a82a53d00cc7d26b13fea374006718dafa3
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        merge-method: 'squash' # Default 'squash'
-        min-approvals: 0 # Default 2
+        merge-method: 'merge' # Default 'squash'
         base-ref: 'master' # Default 'dev'
 
     - name: Checkout workspace
