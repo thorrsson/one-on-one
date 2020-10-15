@@ -32,9 +32,9 @@ jobs:
     #   uses: "pascalgn/automerge-action@v0.12.0"
     #   env:
     #     GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
-    # - name: Checkout workspace
-    #   uses: actions/checkout@master
 
+    - name: Checkout workspace
+      uses: actions/checkout@master
     # Get date and store as environment variables
     - name: Get and store variables
       run: |
