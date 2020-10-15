@@ -21,7 +21,7 @@ jobs:
 
     # Merge Any
     - name: pr-automerge
-      uses: thorrsson/pr-automerge-action@190a1a82a53d00cc7d26b13fea374006718dafa3
+      uses: thorrsson/pr-automerge-action@master
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
