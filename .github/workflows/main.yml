@@ -20,10 +20,14 @@ jobs:
     steps:
 
     # Merge Any
-    - name: automerge
-      uses: "pascalgn/automerge-action@v0.12.0"
-      env:
-        GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+    - name: pr-automerge
+      uses: davideviolante/pr-automerge-action@v1.1.0
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          merge-method: 'squash' # Default 'squash'
+          min-approvals: 0 # Default 2
+          base-ref: 'master' # Default 'dev'
 
     - name: Checkout workspace
       uses: actions/checkout@master
