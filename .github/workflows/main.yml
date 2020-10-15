@@ -20,7 +20,7 @@ jobs:
     steps:
 
     # Merge Any
-    - name: Run PR Helper on Schedule
+    - name: Run PR Helper
       uses: Matticusau/pr-helper@v1.2.3
       with:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
@@ -33,7 +33,8 @@ jobs:
         prmerge-method: 'merge'
         prmerge-deletebranch: 'true'
         prmerge-deletebranch-config: ''
-        prmerge-pathcheck: false
+        prmerge-pathcheck: 'true'
+        prmerge-allowpaths: '{"any":["**/**"]}'
         prreviewer-authorkey: 'author'
         prreviewer-githubuserfromauthorfile: false
         prlabel-default: 'pr-onhold'
@@ -70,7 +71,7 @@ jobs:
     - name: Open pull request for 1:1 notes
       uses: repo-sync/pull-request@v2
       with:
-        source_branch: $BRANCH_NAME                       # If blank, default: triggered branch
+        source_branch: "$BRANCH_NAME"                           # If blank, default: triggered branch
         destination_branch: "master"                      # If blank, default: master
         pr_title: "Pulling ${{ github.ref }} into master" # Title of pull request
         pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
