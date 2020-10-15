@@ -59,10 +59,12 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
+        echo ${{ env.BRANCH_NAME }}
+        env
         echo "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/$GITHUB_REPOSITORY.git"
         git config --global user.email $GITHUB_ACTOR@users.noreply.github.com
         git config --global user.name $GITHUB_ACTOR
-        git checkout -b $BRANCH_NAME
+        git checkout -b ${{ env.BRANCH_NAME }}
         git add .
         git commit -m "Adds meeting notes scaffold"
         git push --force --set-upstream "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" $BRANCH_NAME
@@ -71,10 +73,10 @@ jobs:
     - name: Open pull request for 1:1 notes
       uses: repo-sync/pull-request@v2
       with:
-        source_branch: "$BRANCH_NAME"                           # If blank, default: triggered branch
+        source_branch: "${{ env.BRANCH_NAME }}"           # If blank, default: triggered branch
         destination_branch: "master"                      # If blank, default: master
-        pr_title: "Pulling ${{ github.ref }} into master" # Title of pull request
-        pr_body: ":crown: *An automated PR*"              # Full markdown support, requires pr_title to be set
+        pr_title: "${{ env.WEEK_OF }}" 
+        pr_body: ":crown: *An automated 1:1 PR*"              # Full markdown support, requires pr_title to be set
         pr_assignee: "thorrsson,whitneyimura"             # Comma-separated list (no spaces)
         pr_label: "automerge"                             # Comma-separated list (no spaces)
         github_token: ${{ secrets.GITHUB_TOKEN }}
