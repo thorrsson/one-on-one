@@ -19,7 +19,9 @@ jobs:
           
           console.log(prs.data)
           for (var pull of prs.data) {
-            await github.pulls.merge({owner: context.repo.owner, repo: context.repo.repo, pull_number: pull[0].number})
+            console.log("pull")
+            console.log(pull)
+            await github.pulls.merge({owner: context.repo.owner, repo: context.repo.repo, pull_number: pull.number})
           }
 
     - name: Checkout workspace
