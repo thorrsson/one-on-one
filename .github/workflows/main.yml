@@ -4,15 +4,6 @@ on:
   schedule:
     - cron: 0 3 * * 1
 env:
-  MERGE_LABELS: "automerge"
-  MERGE_REMOVE_LABELS: "automerge"
-  MERGE_METHOD: "squash"
-  MERGE_COMMIT_MESSAGE: "Auto Merging Previous PRs"
-  MERGE_FORKS: "false"
-  MERGE_RETRIES: "6"
-  MERGE_RETRY_SLEEP: "10000"
-  UPDATE_LABELS: ""
-  UPDATE_METHOD: "rebase"
   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 jobs:
   weekly-report:
@@ -20,28 +11,14 @@ jobs:
     steps:
 
     # Merge Any
-    - name: Run PR Helper
-      uses: Matticusau/pr-helper@v1.2.3
-      with:
-        repo-token: ${{ secrets.GITHUB_TOKEN }}
-        enable-prmerge-automation: true
-        enable-prcomment-automation: false
-        enable-prlabel-automation: true
-        enable-prreviewer-frontmatter: true
-        prmerge-requireallchecks: false
-        prmerge-requirereviewcount: -1
-        prmerge-method: 'merge'
-        prmerge-deletebranch: 'true'
-        prmerge-deletebranch-config: ''
-        prmerge-pathcheck: 'true'
-        prmerge-allowpaths: '{"any":["**/**"]}'
-        prreviewer-authorkey: 'author'
-        prreviewer-githubuserfromauthorfile: false
-        prlabel-default: 'pr-onhold'
-        prlabel-ready: 'pr-ready'
-        prlabel-onhold: 'pr-onhold'
-        prlabel-reviewrequired: 'review-required'
-        prlabel-automerge: 'automerge'
+    - name: Repo PRs
+        uses: actions/github-script@v3
+        with:
+          script: |
+            const prs = await github.pulls.list({owner: context.repo.owner, repo: context.repo.repo, state: 'open'})
+            for (var pull of prs) {
+              await github.pulls.merge({owner: context.repo.owner, repo: contenxt.repo.repo, pull_number: pull.id})
+            }
 
     - name: Checkout workspace
       uses: actions/checkout@master
