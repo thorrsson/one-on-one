@@ -12,13 +12,13 @@ jobs:
 
     # Merge Any
     - name: Repo PRs
-        uses: actions/github-script@v3
-        with:
-          script: |
-            const prs = await github.pulls.list({owner: context.repo.owner, repo: context.repo.repo, state: 'open'})
-            for (var pull of prs) {
-              await github.pulls.merge({owner: context.repo.owner, repo: contenxt.repo.repo, pull_number: pull.id})
-            }
+      uses: actions/github-script@v3
+      with:
+        script: |
+          const prs = await github.pulls.list({owner: context.repo.owner, repo: context.repo.repo, state: 'open'})
+          for (var pull of prs) {
+            await github.pulls.merge({owner: context.repo.owner, repo: contenxt.repo.repo, pull_number: pull.id})
+          }
 
     - name: Checkout workspace
       uses: actions/checkout@master
