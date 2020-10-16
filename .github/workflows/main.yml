@@ -61,3 +61,7 @@ jobs:
         pr_label: "automerge"                             # Comma-separated list (no spaces)
         github_token: ${{ secrets.GITHUB_TOKEN }}
  
+    - name: Clean up stale branches
+      uses: "jessfraz/branch-cleanup-action@master"
+      with:
+        secrets: ${{ secrets.GITHUB_TOKEN }}
