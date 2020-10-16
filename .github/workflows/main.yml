@@ -17,8 +17,8 @@ jobs:
         script: |
           const prs = await github.pulls.list({owner: context.repo.owner, repo: context.repo.repo, state: 'open'})
           
-          console.log(prs[0])
-          for (var pull of prs) {
+          console.log(prs.data)
+          for (var pull of prs.data) {
             await github.pulls.merge({owner: context.repo.owner, repo: contenxt.repo.repo, pull_number: pull.id})
           }
 
