@@ -19,7 +19,6 @@ jobs:
           
           console.log(prs.data)
           for (var pull of prs.data) {
-            pull.filter(p => p)
             await github.pulls.merge({owner: context.repo.owner, repo: context.repo.repo, pull_number: pull[0].number})
           }
 
