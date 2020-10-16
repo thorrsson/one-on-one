@@ -1,6 +1,6 @@
 #! /bin/bash
 
-cat <<- EOF >> meeting-notes/notes-$(date +%s).md
+cat <<- EOF >> meeting-notes/notes-$(date '+%B %d, %Y').md
 
 ## $WEEK_OF
 
