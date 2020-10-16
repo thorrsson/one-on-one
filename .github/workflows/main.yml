@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-    # Merge Any
+    # Merge Any Existing PRs
     - name: Repo PRs
       uses: actions/github-script@v3
       with:
@@ -20,7 +20,7 @@ jobs:
           for (var pull of prs.data) {
             await github.pulls.merge({owner: context.repo.owner, repo: context.repo.repo, pull_number: pull.number})
           }
-
+    # Checkout the repo
     - name: Checkout workspace
       uses: actions/checkout@master
       with:
@@ -31,6 +31,7 @@ jobs:
       run: |
         echo ::set-env name=BRANCH_NAME::$(date +%F)
         echo ::set-env name=WEEK_OF::"Week of $(date '+%B %d, %Y')"
+
     # Create meeting notes scaffold
     - name: Create weekly notes scaffold file
       run: ./update_notes.sh
@@ -46,12 +47,11 @@ jobs:
         git config --global user.email $GITHUB_ACTOR@users.noreply.github.com
         git config --global user.name $GITHUB_ACTOR
         git checkout -b ${{ env.BRANCH_NAME }}
-        git pull --rebase origin master
         git add .
         git commit -m "Adds meeting notes scaffold"
         git push --set-upstream "https://${GITHUB_ACTOR}:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git" $BRANCH_NAME
+    
     # Open pull request
-
     - name: Open pull request for 1:1 notes
       uses: repo-sync/pull-request@v2
       with:
