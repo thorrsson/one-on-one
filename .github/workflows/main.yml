@@ -23,8 +23,8 @@ jobs:
 
     - name: Checkout workspace
       uses: actions/checkout@master
-      ref: master
-      clean: true
+      with:
+        ref: master
 
     # Get date and store as environment variables
     - name: Get and store variables
