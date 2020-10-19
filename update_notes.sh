@@ -1,6 +1,7 @@
 #! /bin/bash
 
-cat <<- EOF >> meeting-notes/notes-$(date '+%B %d, %Y').md
+filename="meeting-notes/notes-$(date '+%B-%d-%Y').md"
+cat <<- EOF >> "${filename}"
 
 ## $WEEK_OF
 
