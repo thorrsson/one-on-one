@@ -29,8 +29,8 @@ jobs:
     # Get date and store as environment variables
     - name: Get and store variables
       run: |
-        echo ::set-env name=BRANCH_NAME::$(date +%F)
-        echo ::set-env name=WEEK_OF::"Week of $(date '+%B %d, %Y')"
+        echo "BRANCH_NAME=$(date +%F)" >> $GITHUB_ENV
+        echo "WEEK_OF="Week of $(date '+%B %d, %Y')"" >> $GITHUB_ENV
 
     # Create meeting notes scaffold
     - name: Create weekly notes scaffold file
@@ -57,7 +57,7 @@ jobs:
         destination_branch: "master"                      # If blank, default: master
         pr_title: "${{ env.WEEK_OF }}" 
         pr_body: ":crown: *An automated 1:1 PR*"              # Full markdown support, requires pr_title to be set
-        pr_assignee: "thorrsson,whitneyimura"             # Comma-separated list (no spaces)
+        pr_assignee: "whitneyimura, thorrsson"             # Comma-separated list (no spaces)
         pr_label: "automerge"                             # Comma-separated list (no spaces)
         github_token: ${{ secrets.GITHUB_TOKEN }}
  
