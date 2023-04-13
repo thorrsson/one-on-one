@@ -3,7 +3,7 @@
 
 ### What can we talk about?
 
-- [TODO]
+- boo
 
 ### What can we celebrate?
 
